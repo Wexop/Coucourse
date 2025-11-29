@@ -1,0 +1,15 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["debian-openssl-3.0.x", "windows"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model family {
+  id   Int    @id(map: "user_pk") @default(autoincrement())
+  name String @db.VarChar
+  code String @db.VarChar
+}

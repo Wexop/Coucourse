@@ -12,23 +12,15 @@ import {
   Modal,
   rem,
   SimpleGrid,
-  Text,
   TextInput,
   Title,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
-import {
-  IconPlus,
-  IconTrash,
-  IconX,
-  IconArrowsMaximize,
-} from "@tabler/icons-react";
-import { useCallback, useEffect, useState } from "react";
-import {
-  ShoppingList,
-  ShoppingListItem,
-} from "../../src/types/shopping-list";
+} from "@mantine/core"
+import { useForm } from "@mantine/form"
+import { useDebouncedValue, useDisclosure } from "@mantine/hooks"
+import { IconArrowsMaximize, IconPlus, IconTrash, } from "@tabler/icons-react"
+import { useCallback, useEffect, useState } from "react"
+import { ShoppingList, } from "../../src/types/shopping-list"
+
 
 interface ShoppingListsProps {
   familyId: number;
@@ -158,7 +150,7 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
   const renderListContent = (list: ShoppingList) => (
     <>
       <List spacing="xs" size="sm" mt="sm">
-        {list.shoppingListItem.map((item) => (
+        {list.shoppingListItem.sort(a => a.checked ? 1 : -1).map((item) => (
           <List.Item key={item.id}>
             <Group>
               <Checkbox
@@ -227,7 +219,7 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
                 <IconArrowsMaximize />
               </ActionIcon>
             </Group>
-            <Box mt="sm" style={{ maxHeight: 200, overflowY: "auto" }}>
+            <Box mt="sm" style={{ maxHeight: 500, overflowY: "auto" }}>
               {renderListContent(list)}
             </Box>
           </Card>

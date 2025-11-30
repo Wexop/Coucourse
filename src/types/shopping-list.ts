@@ -1,10 +1,8 @@
-import {
-  shoppingList as PrismaShoppingList,
-  shoppingListItem as PrismaShoppingListItem,
-} from "@prisma/client";
+import { shoppingList, shoppingListItem } from "@/generated/prisma"
 
-export type ShoppingListItem = PrismaShoppingListItem;
 
-export type ShoppingList = PrismaShoppingList & {
+export type ShoppingListItem = shoppingListItem;
+
+export type ShoppingList = shoppingList & {
   shoppingListItem: ShoppingListItem[];
 };

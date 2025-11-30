@@ -35,3 +35,4 @@ next-env.d.ts
 
 .idea
 .env
+src/generated/prisma/node_modules

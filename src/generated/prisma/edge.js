@@ -19,10 +19,7 @@ const {
   skip,
   Decimal,
   Debug,
-  DbNull,
-  JsonNull,
-  AnyNull,
-  NullTypes,
+  objectEnumValues,
   makeStrictEnum,
   Extensions,
   warnOnce,
@@ -30,7 +27,7 @@ const {
   Public,
   getRuntime,
   createParam,
-} = require('./runtime/wasm-compiler-edge.js')
+} = require('./runtime/edge.js')
 
 
 const Prisma = {}
@@ -39,12 +36,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.0.1
- * Query Engine version: f09f2815f091dbba658cdcd2264306d88bb5bda6
+ * Prisma Client JS version: 6.19.0
+ * Query Engine version: 2ba551f319ab1df4bc874a89965d8b3641056773
  */
 Prisma.prismaVersion = {
-  client: "7.0.1",
-  engine: "f09f2815f091dbba658cdcd2264306d88bb5bda6"
+  client: "6.19.0",
+  engine: "2ba551f319ab1df4bc874a89965d8b3641056773"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -72,11 +69,15 @@ Prisma.defineExtension = Extensions.defineExtension
 /**
  * Shorthand utilities for JSON filtering
  */
-Prisma.DbNull = DbNull
-Prisma.JsonNull = JsonNull
-Prisma.AnyNull = AnyNull
+Prisma.DbNull = objectEnumValues.instances.DbNull
+Prisma.JsonNull = objectEnumValues.instances.JsonNull
+Prisma.AnyNull = objectEnumValues.instances.AnyNull
 
-Prisma.NullTypes = NullTypes
+Prisma.NullTypes = {
+  DbNull: objectEnumValues.classes.DbNull,
+  JsonNull: objectEnumValues.classes.JsonNull,
+  AnyNull: objectEnumValues.classes.AnyNull
+}
 
 
 
@@ -98,6 +99,51 @@ exports.Prisma.FamilyScalarFieldEnum = {
   code: 'code'
 };
 
+exports.Prisma.ShoppingListScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.FamilyShoppingListScalarFieldEnum = {
+  familyId: 'familyId',
+  shoppingListId: 'shoppingListId'
+};
+
+exports.Prisma.ShoppingListItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  checked: 'checked',
+  shoppingListId: 'shoppingListId'
+};
+
+exports.Prisma.RecipeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  duration: 'duration',
+  image: 'image',
+  public: 'public',
+  provider: 'provider'
+};
+
+exports.Prisma.RecipeStepScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  index: 'index',
+  recipeId: 'recipeId'
+};
+
+exports.Prisma.RecipeItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  quantity: 'quantity',
+  recipeId: 'recipeId'
+};
+
+exports.Prisma.FamilyRecipeScalarFieldEnum = {
+  familyId: 'familyId',
+  recipeId: 'recipeId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -108,35 +154,95 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  family: 'family'
+  family: 'family',
+  shoppingList: 'shoppingList',
+  familyShoppingList: 'familyShoppingList',
+  shoppingListItem: 'shoppingListItem',
+  recipe: 'recipe',
+  recipeStep: 'recipeStep',
+  recipeItem: 'recipeItem',
+  familyRecipe: 'familyRecipe'
 };
 /**
  * Create the Client
  */
 const config = {
-  "previewFeatures": [],
-  "clientVersion": "7.0.1",
-  "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client-js"
+    },
+    "output": {
+      "value": "C:\\Users\\Matthieu\\Desktop\\ProjetsDev\\Coucourse\\src\\generated\\prisma",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "library"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
+      }
+    ],
+    "previewFeatures": [],
+    "sourceFilePath": "C:\\Users\\Matthieu\\Desktop\\ProjetsDev\\Coucourse\\prisma\\schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativeEnvPaths": {
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
+  },
+  "relativePath": "../../../prisma",
+  "clientVersion": "6.19.0",
+  "engineVersion": "2ba551f319ab1df4bc874a89965d8b3641056773",
+  "datasourceNames": [
+    "db"
+  ],
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"debian-openssl-3.0.x\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel family {\n  id   Int    @id(map: \"user_pk\") @default(autoincrement())\n  name String @db.VarChar\n  code String @db.VarChar\n}\n"
+  "postinstall": false,
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
+      }
+    }
+  },
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"debian-openssl-3.0.x\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel family {\n  id                 Int                  @id(map: \"family_pk\") @default(autoincrement())\n  name               String               @db.VarChar\n  code               String               @db.VarChar\n  familyShoppingList familyShoppingList[]\n  familyRecipe       familyRecipe[]\n}\n\nmodel shoppingList {\n  id                 Int                  @id(map: \"shoppingList_pk\") @default(autoincrement())\n  name               String               @db.VarChar\n  familyShoppingList familyShoppingList[]\n  shoppingListItem   shoppingListItem[]\n}\n\nmodel familyShoppingList {\n  family         family       @relation(fields: [familyId], references: [id])\n  familyId       Int\n  shoppingList   shoppingList @relation(fields: [shoppingListId], references: [id])\n  shoppingListId Int\n\n  @@id([familyId, shoppingListId])\n}\n\nmodel shoppingListItem {\n  id             Int          @id(map: \"shoppingListItem_pk\") @default(autoincrement())\n  name           String       @db.VarChar\n  checked        Boolean      @default(false) @db.Boolean\n  shoppingList   shoppingList @relation(fields: [shoppingListId], references: [id])\n  shoppingListId Int\n}\n\nmodel recipe {\n  id           Int            @id(map: \"recipe_pk\") @default(autoincrement())\n  name         String         @db.VarChar\n  duration     Int            @db.Integer\n  image        String?        @db.VarChar\n  recipeStep   recipeStep[]\n  familyRecipe familyRecipe[]\n  recipeItem   recipeItem[]\n  public       Boolean        @default(false)\n  provider     String?\n}\n\nmodel recipeStep {\n  id          Int    @id(map: \"recipeStep_pk\") @default(autoincrement())\n  description String @db.Text\n  index       Int    @db.Integer\n  recipe      recipe @relation(fields: [recipeId], references: [id])\n  recipeId    Int    @db.Integer\n}\n\nmodel recipeItem {\n  id       Int     @id(map: \"recipeItem_pk\") @default(autoincrement())\n  name     String  @db.VarChar\n  quantity String? @db.VarChar()\n  recipe   recipe  @relation(fields: [recipeId], references: [id])\n  recipeId Int     @db.Integer\n}\n\nmodel familyRecipe {\n  family   family @relation(fields: [familyId], references: [id])\n  familyId Int\n  recipe   recipe @relation(fields: [recipeId], references: [id])\n  recipeId Int\n\n  @@id([familyId, recipeId])\n}\n",
+  "inlineSchemaHash": "70f8f078af50c9ba36157997b4ce8b7482fe64cddfe3d695ca33ccbb15129ec3",
+  "copyEngine": true
 }
+config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"family\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"family\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"code\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"familyShoppingList\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"familyShoppingList\",\"nativeType\":null,\"relationName\":\"familyTofamilyShoppingList\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"familyRecipe\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"familyRecipe\",\"nativeType\":null,\"relationName\":\"familyTofamilyRecipe\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"shoppingList\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"familyShoppingList\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"familyShoppingList\",\"nativeType\":null,\"relationName\":\"familyShoppingListToshoppingList\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"shoppingListItem\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"shoppingListItem\",\"nativeType\":null,\"relationName\":\"shoppingListToshoppingListItem\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"familyShoppingList\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"family\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"family\",\"nativeType\":null,\"relationName\":\"familyTofamilyShoppingList\",\"relationFromFields\":[\"familyId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"familyId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"shoppingList\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"shoppingList\",\"nativeType\":null,\"relationName\":\"familyShoppingListToshoppingList\",\"relationFromFields\":[\"shoppingListId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"shoppingListId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":{\"name\":null,\"fields\":[\"familyId\",\"shoppingListId\"]},\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"shoppingListItem\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"checked\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":[\"Boolean\",[]],\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"shoppingList\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"shoppingList\",\"nativeType\":null,\"relationName\":\"shoppingListToshoppingListItem\",\"relationFromFields\":[\"shoppingListId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"shoppingListId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"recipe\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"duration\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":[\"Integer\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"image\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipeStep\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"recipeStep\",\"nativeType\":null,\"relationName\":\"recipeTorecipeStep\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"familyRecipe\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"familyRecipe\",\"nativeType\":null,\"relationName\":\"familyRecipeTorecipe\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipeItem\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"recipeItem\",\"nativeType\":null,\"relationName\":\"recipeTorecipeItem\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"public\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"provider\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"recipeStep\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"description\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"Text\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"index\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":[\"Integer\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipe\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"recipe\",\"nativeType\":null,\"relationName\":\"recipeTorecipeStep\",\"relationFromFields\":[\"recipeId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipeId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":[\"Integer\",[]],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"recipeItem\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"quantity\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipe\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"recipe\",\"nativeType\":null,\"relationName\":\"recipeTorecipeItem\",\"relationFromFields\":[\"recipeId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipeId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":[\"Integer\",[]],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"familyRecipe\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"family\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"family\",\"nativeType\":null,\"relationName\":\"familyTofamilyRecipe\",\"relationFromFields\":[\"familyId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"familyId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipe\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"recipe\",\"nativeType\":null,\"relationName\":\"familyRecipeTorecipe\",\"relationFromFields\":[\"recipeId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"recipeId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":{\"name\":null,\"fields\":[\"familyId\",\"recipeId\"]},\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
-config.compilerWasm = {
-  getRuntime: async () => require('./query_compiler_bg.js'),
-  getQueryCompilerWasmModule: async () => {
-    const loader = (await import('#wasm-compiler-loader')).default
-    const compiler = (await loader).default
-    return compiler
+config.engineWasm = undefined
+config.compilerWasm = undefined
+
+config.injectableEdgeEnv = () => ({
+  parsed: {
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
   }
-}
-if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || (typeof process !== 'undefined' && process.env && process.env.DEBUG) || undefined) {
-  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || (typeof process !== 'undefined' && process.env && process.env.DEBUG) || undefined)
+})
+
+if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
+  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
 }
 
 const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
+

@@ -6,10 +6,74 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model family {
-  id   Int    @id(map: "user_pk") @default(autoincrement())
-  name String @db.VarChar
-  code String @db.VarChar
+  id                 Int                  @id(map: "family_pk") @default(autoincrement())
+  name               String               @db.VarChar
+  code               String               @db.VarChar
+  familyShoppingList familyShoppingList[]
+  familyRecipe       familyRecipe[]
+}
+
+model shoppingList {
+  id                 Int                  @id(map: "shoppingList_pk") @default(autoincrement())
+  name               String               @db.VarChar
+  familyShoppingList familyShoppingList[]
+  shoppingListItem   shoppingListItem[]
+}
+
+model familyShoppingList {
+  family         family       @relation(fields: [familyId], references: [id])
+  familyId       Int
+  shoppingList   shoppingList @relation(fields: [shoppingListId], references: [id])
+  shoppingListId Int
+
+  @@id([familyId, shoppingListId])
+}
+
+model shoppingListItem {
+  id             Int          @id(map: "shoppingListItem_pk") @default(autoincrement())
+  name           String       @db.VarChar
+  checked        Boolean      @default(false) @db.Boolean
+  shoppingList   shoppingList @relation(fields: [shoppingListId], references: [id])
+  shoppingListId Int
+}
+
+model recipe {
+  id           Int            @id(map: "recipe_pk") @default(autoincrement())
+  name         String         @db.VarChar
+  duration     Int            @db.Integer
+  image        String?        @db.VarChar
+  recipeStep   recipeStep[]
+  familyRecipe familyRecipe[]
+  recipeItem   recipeItem[]
+  public       Boolean        @default(false)
+  provider     String?
+}
+
+model recipeStep {
+  id          Int    @id(map: "recipeStep_pk") @default(autoincrement())
+  description String @db.Text
+  index       Int    @db.Integer
+  recipe      recipe @relation(fields: [recipeId], references: [id])
+  recipeId    Int    @db.Integer
+}
+
+model recipeItem {
+  id       Int     @id(map: "recipeItem_pk") @default(autoincrement())
+  name     String  @db.VarChar
+  quantity String? @db.VarChar()
+  recipe   recipe  @relation(fields: [recipeId], references: [id])
+  recipeId Int     @db.Integer
+}
+
+model familyRecipe {
+  family   family @relation(fields: [familyId], references: [id])
+  familyId Int
+  recipe   recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+
+  @@id([familyId, recipeId])
 }

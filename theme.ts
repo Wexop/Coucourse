@@ -20,6 +20,6 @@ const blueColors: MantineColorsTuple  = [
 export const theme = createTheme({
   colors: { blueColors },
   primaryColor: "blueColors",
-  white: "#85aaf8"
+  white: "#bacfff"
 });
 export const vars = themeToVars(theme);

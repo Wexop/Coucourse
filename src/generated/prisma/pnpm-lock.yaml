@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@prisma/client-runtime-utils':
+        specifier: 7.0.1
+        version: 7.0.1
+
+packages:
+
+  '@prisma/client-runtime-utils@7.0.1':
+    resolution: {integrity: sha512-R26BVX9D/iw4toUmZKZf3jniM/9pMGHHdZN5LVP2L7HNiCQKNQQx/9LuMtjepbgRqSqQO3oHN0yzojHLnKTGEw==}
+
+snapshots:
+
+  '@prisma/client-runtime-utils@7.0.1': {}

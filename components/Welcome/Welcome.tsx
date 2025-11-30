@@ -1,13 +1,13 @@
 "use client";
 
-import { Box, Button, Container, Group, Text, TextInput, Title } from "@mantine/core"
-import { useForm } from "@mantine/form"
-import JoinFamilyInput from "../JoinFamily/JoinFamilyInput"
-import * as classes from "./Welcome.css"
-import { family } from "@/generated/prisma"
-
+import { Box, Button, Container, Group, Text, TextInput, Title } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useRouter } from "next/navigation";
+import JoinFamilyInput from "../JoinFamily/JoinFamilyInput";
+import * as classes from "./Welcome.css";
 
 export function Welcome() {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       familyName: "",
@@ -19,7 +19,6 @@ export function Welcome() {
   });
 
   const handleCreateFamily = async (values: { familyName: string }) => {
-    console.log(values);
     const response = await fetch("/api/family", {
       method: "POST",
       headers: {
@@ -27,9 +26,9 @@ export function Welcome() {
       },
       body: JSON.stringify({ name: values.familyName }),
     });
-    const family: family = await response.json();
-    // TODO: redirect to family page
-    console.log(family);
+    if (response.ok) {
+      router.refresh();
+    }
   };
 
   return (
@@ -52,7 +51,8 @@ export function Welcome() {
         mt="xl"
       >
         <Group justify="center">
-          <TextInput variant={"filled"}
+          <TextInput
+            variant={"filled"}
             placeholder="Nom de la famille"
             {...form.getInputProps("familyName")}
           />

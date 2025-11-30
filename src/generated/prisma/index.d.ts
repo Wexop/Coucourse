@@ -2755,16 +2755,19 @@ export namespace Prisma {
   export type ShoppingListMinAggregateOutputType = {
     id: number | null
     name: string | null
+    createdAt: Date | null
   }
 
   export type ShoppingListMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    createdAt: Date | null
   }
 
   export type ShoppingListCountAggregateOutputType = {
     id: number
     name: number
+    createdAt: number
     _all: number
   }
 
@@ -2780,16 +2783,19 @@ export namespace Prisma {
   export type ShoppingListMinAggregateInputType = {
     id?: true
     name?: true
+    createdAt?: true
   }
 
   export type ShoppingListMaxAggregateInputType = {
     id?: true
     name?: true
+    createdAt?: true
   }
 
   export type ShoppingListCountAggregateInputType = {
     id?: true
     name?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -2882,6 +2888,7 @@ export namespace Prisma {
   export type ShoppingListGroupByOutputType = {
     id: number
     name: string
+    createdAt: Date
     _count: ShoppingListCountAggregateOutputType | null
     _avg: ShoppingListAvgAggregateOutputType | null
     _sum: ShoppingListSumAggregateOutputType | null
@@ -2906,6 +2913,7 @@ export namespace Prisma {
   export type shoppingListSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    createdAt?: boolean
     familyShoppingList?: boolean | shoppingList$familyShoppingListArgs<ExtArgs>
     shoppingListItem?: boolean | shoppingList$shoppingListItemArgs<ExtArgs>
     _count?: boolean | ShoppingListCountOutputTypeDefaultArgs<ExtArgs>
@@ -2914,19 +2922,22 @@ export namespace Prisma {
   export type shoppingListSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["shoppingList"]>
 
   export type shoppingListSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["shoppingList"]>
 
   export type shoppingListSelectScalar = {
     id?: boolean
     name?: boolean
+    createdAt?: boolean
   }
 
-  export type shoppingListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["shoppingList"]>
+  export type shoppingListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt", ExtArgs["result"]["shoppingList"]>
   export type shoppingListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familyShoppingList?: boolean | shoppingList$familyShoppingListArgs<ExtArgs>
     shoppingListItem?: boolean | shoppingList$shoppingListItemArgs<ExtArgs>
@@ -2944,6 +2955,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      createdAt: Date
     }, ExtArgs["result"]["shoppingList"]>
     composites: {}
   }
@@ -3371,6 +3383,7 @@ export namespace Prisma {
   interface shoppingListFieldRefs {
     readonly id: FieldRef<"shoppingList", 'Int'>
     readonly name: FieldRef<"shoppingList", 'String'>
+    readonly createdAt: FieldRef<"shoppingList", 'DateTime'>
   }
     
 
@@ -4917,6 +4930,7 @@ export namespace Prisma {
     name: string | null
     checked: boolean | null
     shoppingListId: number | null
+    createdAt: Date | null
   }
 
   export type ShoppingListItemMaxAggregateOutputType = {
@@ -4924,6 +4938,7 @@ export namespace Prisma {
     name: string | null
     checked: boolean | null
     shoppingListId: number | null
+    createdAt: Date | null
   }
 
   export type ShoppingListItemCountAggregateOutputType = {
@@ -4931,6 +4946,7 @@ export namespace Prisma {
     name: number
     checked: number
     shoppingListId: number
+    createdAt: number
     _all: number
   }
 
@@ -4950,6 +4966,7 @@ export namespace Prisma {
     name?: true
     checked?: true
     shoppingListId?: true
+    createdAt?: true
   }
 
   export type ShoppingListItemMaxAggregateInputType = {
@@ -4957,6 +4974,7 @@ export namespace Prisma {
     name?: true
     checked?: true
     shoppingListId?: true
+    createdAt?: true
   }
 
   export type ShoppingListItemCountAggregateInputType = {
@@ -4964,6 +4982,7 @@ export namespace Prisma {
     name?: true
     checked?: true
     shoppingListId?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -5058,6 +5077,7 @@ export namespace Prisma {
     name: string
     checked: boolean
     shoppingListId: number
+    createdAt: Date
     _count: ShoppingListItemCountAggregateOutputType | null
     _avg: ShoppingListItemAvgAggregateOutputType | null
     _sum: ShoppingListItemSumAggregateOutputType | null
@@ -5084,6 +5104,7 @@ export namespace Prisma {
     name?: boolean
     checked?: boolean
     shoppingListId?: boolean
+    createdAt?: boolean
     shoppingList?: boolean | shoppingListDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shoppingListItem"]>
 
@@ -5092,6 +5113,7 @@ export namespace Prisma {
     name?: boolean
     checked?: boolean
     shoppingListId?: boolean
+    createdAt?: boolean
     shoppingList?: boolean | shoppingListDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shoppingListItem"]>
 
@@ -5100,6 +5122,7 @@ export namespace Prisma {
     name?: boolean
     checked?: boolean
     shoppingListId?: boolean
+    createdAt?: boolean
     shoppingList?: boolean | shoppingListDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shoppingListItem"]>
 
@@ -5108,9 +5131,10 @@ export namespace Prisma {
     name?: boolean
     checked?: boolean
     shoppingListId?: boolean
+    createdAt?: boolean
   }
 
-  export type shoppingListItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "checked" | "shoppingListId", ExtArgs["result"]["shoppingListItem"]>
+  export type shoppingListItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "checked" | "shoppingListId" | "createdAt", ExtArgs["result"]["shoppingListItem"]>
   export type shoppingListItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     shoppingList?: boolean | shoppingListDefaultArgs<ExtArgs>
   }
@@ -5131,6 +5155,7 @@ export namespace Prisma {
       name: string
       checked: boolean
       shoppingListId: number
+      createdAt: Date
     }, ExtArgs["result"]["shoppingListItem"]>
     composites: {}
   }
@@ -5559,6 +5584,7 @@ export namespace Prisma {
     readonly name: FieldRef<"shoppingListItem", 'String'>
     readonly checked: FieldRef<"shoppingListItem", 'Boolean'>
     readonly shoppingListId: FieldRef<"shoppingListItem", 'Int'>
+    readonly createdAt: FieldRef<"shoppingListItem", 'DateTime'>
   }
     
 
@@ -10410,7 +10436,8 @@ export namespace Prisma {
 
   export const ShoppingListScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    createdAt: 'createdAt'
   };
 
   export type ShoppingListScalarFieldEnum = (typeof ShoppingListScalarFieldEnum)[keyof typeof ShoppingListScalarFieldEnum]
@@ -10428,7 +10455,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     checked: 'checked',
-    shoppingListId: 'shoppingListId'
+    shoppingListId: 'shoppingListId',
+    createdAt: 'createdAt'
   };
 
   export type ShoppingListItemScalarFieldEnum = (typeof ShoppingListItemScalarFieldEnum)[keyof typeof ShoppingListItemScalarFieldEnum]
@@ -10532,6 +10560,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -10611,6 +10653,7 @@ export namespace Prisma {
     NOT?: shoppingListWhereInput | shoppingListWhereInput[]
     id?: IntFilter<"shoppingList"> | number
     name?: StringFilter<"shoppingList"> | string
+    createdAt?: DateTimeFilter<"shoppingList"> | Date | string
     familyShoppingList?: FamilyShoppingListListRelationFilter
     shoppingListItem?: ShoppingListItemListRelationFilter
   }
@@ -10618,6 +10661,7 @@ export namespace Prisma {
   export type shoppingListOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
     familyShoppingList?: familyShoppingListOrderByRelationAggregateInput
     shoppingListItem?: shoppingListItemOrderByRelationAggregateInput
   }
@@ -10628,6 +10672,7 @@ export namespace Prisma {
     OR?: shoppingListWhereInput[]
     NOT?: shoppingListWhereInput | shoppingListWhereInput[]
     name?: StringFilter<"shoppingList"> | string
+    createdAt?: DateTimeFilter<"shoppingList"> | Date | string
     familyShoppingList?: FamilyShoppingListListRelationFilter
     shoppingListItem?: ShoppingListItemListRelationFilter
   }, "id">
@@ -10635,6 +10680,7 @@ export namespace Prisma {
   export type shoppingListOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
     _count?: shoppingListCountOrderByAggregateInput
     _avg?: shoppingListAvgOrderByAggregateInput
     _max?: shoppingListMaxOrderByAggregateInput
@@ -10648,6 +10694,7 @@ export namespace Prisma {
     NOT?: shoppingListScalarWhereWithAggregatesInput | shoppingListScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"shoppingList"> | number
     name?: StringWithAggregatesFilter<"shoppingList"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"shoppingList"> | Date | string
   }
 
   export type familyShoppingListWhereInput = {
@@ -10704,6 +10751,7 @@ export namespace Prisma {
     name?: StringFilter<"shoppingListItem"> | string
     checked?: BoolFilter<"shoppingListItem"> | boolean
     shoppingListId?: IntFilter<"shoppingListItem"> | number
+    createdAt?: DateTimeFilter<"shoppingListItem"> | Date | string
     shoppingList?: XOR<ShoppingListScalarRelationFilter, shoppingListWhereInput>
   }
 
@@ -10712,6 +10760,7 @@ export namespace Prisma {
     name?: SortOrder
     checked?: SortOrder
     shoppingListId?: SortOrder
+    createdAt?: SortOrder
     shoppingList?: shoppingListOrderByWithRelationInput
   }
 
@@ -10723,6 +10772,7 @@ export namespace Prisma {
     name?: StringFilter<"shoppingListItem"> | string
     checked?: BoolFilter<"shoppingListItem"> | boolean
     shoppingListId?: IntFilter<"shoppingListItem"> | number
+    createdAt?: DateTimeFilter<"shoppingListItem"> | Date | string
     shoppingList?: XOR<ShoppingListScalarRelationFilter, shoppingListWhereInput>
   }, "id">
 
@@ -10731,6 +10781,7 @@ export namespace Prisma {
     name?: SortOrder
     checked?: SortOrder
     shoppingListId?: SortOrder
+    createdAt?: SortOrder
     _count?: shoppingListItemCountOrderByAggregateInput
     _avg?: shoppingListItemAvgOrderByAggregateInput
     _max?: shoppingListItemMaxOrderByAggregateInput
@@ -10746,6 +10797,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"shoppingListItem"> | string
     checked?: BoolWithAggregatesFilter<"shoppingListItem"> | boolean
     shoppingListId?: IntWithAggregatesFilter<"shoppingListItem"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"shoppingListItem"> | Date | string
   }
 
   export type recipeWhereInput = {
@@ -11015,6 +11067,7 @@ export namespace Prisma {
 
   export type shoppingListCreateInput = {
     name: string
+    createdAt?: Date | string
     familyShoppingList?: familyShoppingListCreateNestedManyWithoutShoppingListInput
     shoppingListItem?: shoppingListItemCreateNestedManyWithoutShoppingListInput
   }
@@ -11022,12 +11075,14 @@ export namespace Prisma {
   export type shoppingListUncheckedCreateInput = {
     id?: number
     name: string
+    createdAt?: Date | string
     familyShoppingList?: familyShoppingListUncheckedCreateNestedManyWithoutShoppingListInput
     shoppingListItem?: shoppingListItemUncheckedCreateNestedManyWithoutShoppingListInput
   }
 
   export type shoppingListUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     familyShoppingList?: familyShoppingListUpdateManyWithoutShoppingListNestedInput
     shoppingListItem?: shoppingListItemUpdateManyWithoutShoppingListNestedInput
   }
@@ -11035,6 +11090,7 @@ export namespace Prisma {
   export type shoppingListUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     familyShoppingList?: familyShoppingListUncheckedUpdateManyWithoutShoppingListNestedInput
     shoppingListItem?: shoppingListItemUncheckedUpdateManyWithoutShoppingListNestedInput
   }
@@ -11042,15 +11098,18 @@ export namespace Prisma {
   export type shoppingListCreateManyInput = {
     id?: number
     name: string
+    createdAt?: Date | string
   }
 
   export type shoppingListUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type shoppingListUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type familyShoppingListCreateInput = {
@@ -11090,6 +11149,7 @@ export namespace Prisma {
   export type shoppingListItemCreateInput = {
     name: string
     checked?: boolean
+    createdAt?: Date | string
     shoppingList: shoppingListCreateNestedOneWithoutShoppingListItemInput
   }
 
@@ -11098,11 +11158,13 @@ export namespace Prisma {
     name: string
     checked?: boolean
     shoppingListId: number
+    createdAt?: Date | string
   }
 
   export type shoppingListItemUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     shoppingList?: shoppingListUpdateOneRequiredWithoutShoppingListItemNestedInput
   }
 
@@ -11111,6 +11173,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
     shoppingListId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type shoppingListItemCreateManyInput = {
@@ -11118,11 +11181,13 @@ export namespace Prisma {
     name: string
     checked?: boolean
     shoppingListId: number
+    createdAt?: Date | string
   }
 
   export type shoppingListItemUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type shoppingListItemUncheckedUpdateManyInput = {
@@ -11130,6 +11195,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
     shoppingListId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type recipeCreateInput = {
@@ -11434,6 +11500,17 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type ShoppingListItemListRelationFilter = {
     every?: shoppingListItemWhereInput
     some?: shoppingListItemWhereInput
@@ -11447,6 +11524,7 @@ export namespace Prisma {
   export type shoppingListCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type shoppingListAvgOrderByAggregateInput = {
@@ -11456,15 +11534,31 @@ export namespace Prisma {
   export type shoppingListMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type shoppingListMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type shoppingListSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type FamilyScalarRelationFilter = {
@@ -11517,6 +11611,7 @@ export namespace Prisma {
     name?: SortOrder
     checked?: SortOrder
     shoppingListId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type shoppingListItemAvgOrderByAggregateInput = {
@@ -11529,6 +11624,7 @@ export namespace Prisma {
     name?: SortOrder
     checked?: SortOrder
     shoppingListId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type shoppingListItemMinOrderByAggregateInput = {
@@ -11536,6 +11632,7 @@ export namespace Prisma {
     name?: SortOrder
     checked?: SortOrder
     shoppingListId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type shoppingListItemSumOrderByAggregateInput = {
@@ -11867,6 +11964,10 @@ export namespace Prisma {
     connectOrCreate?: shoppingListItemCreateOrConnectWithoutShoppingListInput | shoppingListItemCreateOrConnectWithoutShoppingListInput[]
     createMany?: shoppingListItemCreateManyShoppingListInputEnvelope
     connect?: shoppingListItemWhereUniqueInput | shoppingListItemWhereUniqueInput[]
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type familyShoppingListUpdateManyWithoutShoppingListNestedInput = {
@@ -12226,6 +12327,31 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -12386,12 +12512,14 @@ export namespace Prisma {
   export type shoppingListItemCreateWithoutShoppingListInput = {
     name: string
     checked?: boolean
+    createdAt?: Date | string
   }
 
   export type shoppingListItemUncheckedCreateWithoutShoppingListInput = {
     id?: number
     name: string
     checked?: boolean
+    createdAt?: Date | string
   }
 
   export type shoppingListItemCreateOrConnectWithoutShoppingListInput = {
@@ -12444,6 +12572,7 @@ export namespace Prisma {
     name?: StringFilter<"shoppingListItem"> | string
     checked?: BoolFilter<"shoppingListItem"> | boolean
     shoppingListId?: IntFilter<"shoppingListItem"> | number
+    createdAt?: DateTimeFilter<"shoppingListItem"> | Date | string
   }
 
   export type familyCreateWithoutFamilyShoppingListInput = {
@@ -12466,12 +12595,14 @@ export namespace Prisma {
 
   export type shoppingListCreateWithoutFamilyShoppingListInput = {
     name: string
+    createdAt?: Date | string
     shoppingListItem?: shoppingListItemCreateNestedManyWithoutShoppingListInput
   }
 
   export type shoppingListUncheckedCreateWithoutFamilyShoppingListInput = {
     id?: number
     name: string
+    createdAt?: Date | string
     shoppingListItem?: shoppingListItemUncheckedCreateNestedManyWithoutShoppingListInput
   }
 
@@ -12517,23 +12648,27 @@ export namespace Prisma {
 
   export type shoppingListUpdateWithoutFamilyShoppingListInput = {
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     shoppingListItem?: shoppingListItemUpdateManyWithoutShoppingListNestedInput
   }
 
   export type shoppingListUncheckedUpdateWithoutFamilyShoppingListInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     shoppingListItem?: shoppingListItemUncheckedUpdateManyWithoutShoppingListNestedInput
   }
 
   export type shoppingListCreateWithoutShoppingListItemInput = {
     name: string
+    createdAt?: Date | string
     familyShoppingList?: familyShoppingListCreateNestedManyWithoutShoppingListInput
   }
 
   export type shoppingListUncheckedCreateWithoutShoppingListItemInput = {
     id?: number
     name: string
+    createdAt?: Date | string
     familyShoppingList?: familyShoppingListUncheckedCreateNestedManyWithoutShoppingListInput
   }
 
@@ -12555,12 +12690,14 @@ export namespace Prisma {
 
   export type shoppingListUpdateWithoutShoppingListItemInput = {
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     familyShoppingList?: familyShoppingListUpdateManyWithoutShoppingListNestedInput
   }
 
   export type shoppingListUncheckedUpdateWithoutShoppingListItemInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     familyShoppingList?: familyShoppingListUncheckedUpdateManyWithoutShoppingListNestedInput
   }
 
@@ -12948,6 +13085,7 @@ export namespace Prisma {
     id?: number
     name: string
     checked?: boolean
+    createdAt?: Date | string
   }
 
   export type familyShoppingListUpdateWithoutShoppingListInput = {
@@ -12965,18 +13103,21 @@ export namespace Prisma {
   export type shoppingListItemUpdateWithoutShoppingListInput = {
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type shoppingListItemUncheckedUpdateWithoutShoppingListInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type shoppingListItemUncheckedUpdateManyWithoutShoppingListInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     checked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type recipeStepCreateManyRecipeInput = {

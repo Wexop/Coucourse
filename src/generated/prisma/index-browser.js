@@ -129,7 +129,8 @@ exports.Prisma.FamilyScalarFieldEnum = {
 
 exports.Prisma.ShoppingListScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.FamilyShoppingListScalarFieldEnum = {
@@ -141,7 +142,8 @@ exports.Prisma.ShoppingListItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   checked: 'checked',
-  shoppingListId: 'shoppingListId'
+  shoppingListId: 'shoppingListId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.RecipeScalarFieldEnum = {

@@ -1,10 +1,11 @@
 "use client";
 
-import { Box, Button, Group, TextInput } from "@mantine/core"
-import { useForm } from "@mantine/form"
-
+import { Box, Button, Group, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useRouter } from "next/navigation";
 
 export default function JoinFamilyInput() {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       familyCode: "",
@@ -23,15 +24,16 @@ export default function JoinFamilyInput() {
       },
       body: JSON.stringify({ code: values.familyCode }),
     });
-    const family = await response.json();
-    // TODO: redirect to family page
-    console.log(family);
+    if (response.ok) {
+      router.refresh();
+    }
   };
 
   return (
     <Box component="form" onSubmit={form.onSubmit(handleJoinFamily)}>
       <Group>
-        <TextInput variant={"filled"}
+        <TextInput
+          variant={"filled"}
           placeholder="Code de la famille"
           {...form.getInputProps("familyCode")}
         />

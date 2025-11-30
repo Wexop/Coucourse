@@ -1,7 +1,25 @@
 "use client";
 
-import { createTheme } from "@mantine/core";
-import { themeToVars } from "@mantine/vanilla-extract";
+import { createTheme, MantineColorsTuple } from "@mantine/core"
+import { themeToVars } from "@mantine/vanilla-extract"
 
-export const theme = createTheme({});
+
+const blueColors: MantineColorsTuple  = [
+  "#ecf4ff",
+  "#dce4f5",
+  "#b9c7e2",
+  "#94a8d0",
+  "#748dc0",
+  "#5f7cb7",
+  "#5474b4",
+  "#44639f",
+  "#3a5890",
+  "#2c4b80"
+]
+
+export const theme = createTheme({
+  colors: { blueColors },
+  primaryColor: "blueColors",
+  white: "#85aaf8"
+});
 export const vars = themeToVars(theme);

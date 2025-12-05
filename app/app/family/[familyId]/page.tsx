@@ -1,21 +1,22 @@
-import { getCookie } from "cookies-next"
-import { cookies } from "next/headers"
-import { Alert, Container, Title } from "@mantine/core"
-import { IconInfoCircle } from "@tabler/icons-react"
-import prisma from "@/client"
-import { ShoppingLists } from "../../../../components/ShoppingLists/ShoppingLists"
-
+import { cookies } from "next/headers";
+import { Container, Alert } from "@mantine/core";
+import { IconInfoCircle } from "@tabler/icons-react";
+import prisma from "@/client";
+import { FamilyHeader } from "../../../../components/FamilyHeader/FamilyHeader";
+import { ShoppingList } from "../../../../types/shopping-list";
+import { FamilyTabs } from "../../../../components/FamilyTabs/FamilyTabs";
+import { recipe } from "@/generated/prisma";
 
 async function getFamilyDetails(familyId: number) {
-  const familiesCookie = await getCookie("families", { cookies });
+  const familiesCookie = (await cookies()).get("families")?.value;
   if (!familiesCookie) return null;
 
-  const families = JSON.parse(familiesCookie) as { id: number, name: string }[];
-  const family = families.find((f) => f.id === familyId);
+  const families = JSON.parse(familiesCookie);
+  const family = families.find((f: { id: number }) => f.id === familyId);
   return family || null;
 }
 
-async function getShoppingLists(familyId: number) {
+async function getShoppingLists(familyId: number): Promise<ShoppingList[]> {
   const shoppingLists = await prisma.shoppingList.findMany({
     where: {
       familyShoppingList: {
@@ -27,7 +28,7 @@ async function getShoppingLists(familyId: number) {
     include: {
       shoppingListItem: {
         orderBy: {
-          checked: "asc",
+          createdAt: "asc",
         },
       },
     },
@@ -36,6 +37,19 @@ async function getShoppingLists(familyId: number) {
     },
   });
   return shoppingLists;
+}
+
+async function getRecipes(familyId: number): Promise<recipe[]> {
+  const recipes = await prisma.recipe.findMany({
+    where: {
+      familyRecipe: {
+        some: {
+          familyId: familyId,
+        },
+      },
+    },
+  });
+  return recipes;
 }
 
 export default async function FamilyPage({
@@ -62,14 +76,17 @@ export default async function FamilyPage({
     );
   }
 
-  const initialLists = await getShoppingLists(familyId);
+  const initialShoppingLists = await getShoppingLists(familyId);
+  const initialRecipes = await getRecipes(familyId);
 
   return (
     <Container>
-      <Title order={1} my="xl">
-        Famille: {family.name}
-      </Title>
-      <ShoppingLists familyId={familyId} initialLists={initialLists} />
+      <FamilyHeader family={family} />
+      <FamilyTabs
+        familyId={familyId}
+        initialShoppingLists={initialShoppingLists}
+        initialRecipes={initialRecipes}
+      />
     </Container>
   );
 }

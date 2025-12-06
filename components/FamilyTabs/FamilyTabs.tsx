@@ -1,11 +1,17 @@
 "use client";
 
 import { Tabs } from "@mantine/core";
-import { IconClipboardList, IconBook } from "@tabler/icons-react";
+import {
+  IconClipboardList,
+  IconBook,
+  IconSparkles,
+} from "@tabler/icons-react";
 import { ShoppingLists } from "../ShoppingLists/ShoppingLists";
 import { ShoppingList } from "../../types/shopping-list";
 import { RecipesTab } from "../RecipesTab/RecipesTab";
 import { recipe } from "@/generated/prisma";
+import { AIAssistantTab } from "../AIAssistantTab/AIAssistantTab";
+import { useState } from "react";
 
 interface FamilyTabsProps {
   familyId: number;
@@ -18,6 +24,12 @@ export function FamilyTabs({
   initialShoppingLists,
   initialRecipes,
 }: FamilyTabsProps) {
+  const [recipes, setRecipes] = useState<recipe[]>(initialRecipes);
+
+  const handleRecipeCreated = (newRecipe: recipe) => {
+    setRecipes((prev) => [...prev, newRecipe]);
+  };
+
   return (
     <Tabs defaultValue="shopping-lists">
       <Tabs.List>
@@ -26,6 +38,9 @@ export function FamilyTabs({
         </Tabs.Tab>
         <Tabs.Tab value="recipes" leftSection={<IconBook />}>
           Recettes
+        </Tabs.Tab>
+        <Tabs.Tab value="ai-assistant" leftSection={<IconSparkles />}>
+          Assistant IA
         </Tabs.Tab>
       </Tabs.List>
 
@@ -37,7 +52,18 @@ export function FamilyTabs({
       </Tabs.Panel>
 
       <Tabs.Panel value="recipes" pt="xs">
-        <RecipesTab familyId={familyId} initialRecipes={initialRecipes} />
+        <RecipesTab
+          familyId={familyId}
+          recipes={recipes}
+          onRecipeCreated={handleRecipeCreated}
+        />
+      </Tabs.Panel>
+
+      <Tabs.Panel value="ai-assistant" pt="xs">
+        <AIAssistantTab
+          familyId={familyId}
+          onRecipeCreated={handleRecipeCreated}
+        />
       </Tabs.Panel>
     </Tabs>
   );

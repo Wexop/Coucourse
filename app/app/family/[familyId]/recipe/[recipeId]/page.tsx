@@ -1,7 +1,8 @@
-import { Container, Alert } from "@mantine/core";
-import { IconInfoCircle } from "@tabler/icons-react";
-import prisma from "@/client";
-import { RecipeDetails } from "../../../../../../components/RecipeDetails/RecipeDetails";
+import { Alert, Container } from "@mantine/core"
+import { IconInfoCircle } from "@tabler/icons-react"
+import prisma from "@/client"
+import { RecipeDetails } from "../../../../../../components/RecipeDetails/RecipeDetails"
+
 
 async function getRecipeDetails(recipeId: number) {
   return prisma.recipe.findUnique({
@@ -28,12 +29,15 @@ async function getShoppingLists(familyId: number) {
 export default async function RecipePage({
   params,
 }: {
-  params: { familyId: string; recipeId: string };
+  params: Promise<{ familyId: string; recipeId: string }>;
 }) {
-  const recipeId = parseInt(params.recipeId, 10);
-  const familyId = parseInt(params.familyId, 10);
-  const recipe = await getRecipeDetails(recipeId);
-  const shoppingLists = await getShoppingLists(familyId);
+
+  const {recipeId, familyId} = (await params)
+
+  const recipeIdFound = parseInt(recipeId, 10);
+  const familyIdFound = parseInt(familyId, 10);
+  const recipe = await getRecipeDetails(recipeIdFound);
+  const shoppingLists = await getShoppingLists(familyIdFound);
 
   if (!recipe) {
     return (
@@ -53,7 +57,7 @@ export default async function RecipePage({
 
   return (
     <RecipeDetails
-      familyId={familyId}
+      familyId={familyIdFound}
       recipe={recipe}
       shoppingLists={shoppingLists}
     />

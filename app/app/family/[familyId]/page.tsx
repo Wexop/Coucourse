@@ -1,11 +1,12 @@
-import { cookies } from "next/headers";
-import { Container, Alert } from "@mantine/core";
-import { IconInfoCircle } from "@tabler/icons-react";
-import prisma from "@/client";
-import { FamilyHeader } from "../../../../components/FamilyHeader/FamilyHeader";
-import { ShoppingList } from "../../../../types/shopping-list";
-import { FamilyTabs } from "../../../../components/FamilyTabs/FamilyTabs";
-import { recipe } from "@/generated/prisma";
+import { cookies } from "next/headers"
+import { Alert, Container } from "@mantine/core"
+import { IconInfoCircle } from "@tabler/icons-react"
+import prisma from "@/client"
+import { FamilyHeader } from "../../../../components/FamilyHeader/FamilyHeader"
+import { FamilyTabs } from "../../../../components/FamilyTabs/FamilyTabs"
+import { recipe } from "@/generated/prisma"
+import { ShoppingList } from "@/types/shopping-list"
+
 
 async function getFamilyDetails(familyId: number) {
   const familiesCookie = (await cookies()).get("families")?.value;
@@ -57,7 +58,7 @@ export default async function FamilyPage({
 }: {
   params: { familyId: string };
 }) {
-  const familyId = parseInt(params.familyId, 10);
+  const familyId = parseInt((await params).familyId, 10);
   const family = await getFamilyDetails(familyId);
 
   if (!family) {

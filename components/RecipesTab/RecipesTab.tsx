@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Button,
   Group,
@@ -11,21 +10,21 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { CreateRecipeModal } from "../CreateRecipeModal/CreateRecipeModal";
-import { recipe } from "@prisma/client";
+import { recipe } from "@/generated/prisma";
 import Link from "next/link";
 
 interface RecipesTabProps {
   familyId: number;
-  initialRecipes: recipe[];
+  recipes: recipe[];
+  onRecipeCreated: (newRecipe: recipe) => void;
 }
 
-export function RecipesTab({ familyId, initialRecipes }: RecipesTabProps) {
-  const [recipes, setRecipes] = useState<recipe[]>(initialRecipes);
+export function RecipesTab({
+  familyId,
+  recipes,
+  onRecipeCreated,
+}: RecipesTabProps) {
   const [opened, { open, close }] = useDisclosure(false);
-
-  const handleRecipeCreated = (newRecipe: recipe) => {
-    setRecipes((prev) => [...prev, newRecipe]);
-  };
 
   return (
     <>
@@ -33,7 +32,7 @@ export function RecipesTab({ familyId, initialRecipes }: RecipesTabProps) {
         opened={opened}
         onClose={close}
         familyId={familyId}
-        onRecipeCreated={handleRecipeCreated}
+        onRecipeCreated={onRecipeCreated}
       />
 
       <Group justify="space-between" align="center" my="md">

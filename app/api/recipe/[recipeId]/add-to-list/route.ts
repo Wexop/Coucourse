@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
-import prisma from "@/client";
+import { NextResponse } from "next/server"
+import prisma from "@/client"
+
 
 export async function POST(
   request: Request,
@@ -30,7 +31,7 @@ export async function POST(
     // Format items for the shopping list
     const shoppingListItems = recipeItems.map((item) => {
       const name = item.quantity
-        ? `${item.name} (${item.quantity})`
+        ? `${item.name}`
         : item.name;
       return {
         name,

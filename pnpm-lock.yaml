@@ -50,6 +50,15 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.16.3
+      postcss:
+        specifier: ^8.5.5
+        version: 8.5.6
+      postcss-preset-mantine:
+        specifier: 1.17.0
+        version: 1.17.0(postcss@8.5.6)
+      postcss-simple-vars:
+        specifier: ^7.0.1
+        version: 7.0.1(postcss@8.5.6)
       prisma:
         specifier: ^6.16.2
         version: 6.19.0(typescript@5.8.3)
@@ -59,6 +68,9 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
       zod:
         specifier: ^4.1.13
         version: 4.1.13
@@ -87,18 +99,6 @@ importers:
       eslint-config-next:
         specifier: 15.3.3
         version: 15.3.3(eslint@9.29.0(jiti@2.6.1))(typescript@5.8.3)
-      postcss:
-        specifier: ^8.5.5
-        version: 8.5.6
-      postcss-preset-mantine:
-        specifier: 1.17.0
-        version: 1.17.0(postcss@8.5.6)
-      postcss-simple-vars:
-        specifier: ^7.0.1
-        version: 7.0.1(postcss@8.5.6)
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
 
 packages:
 

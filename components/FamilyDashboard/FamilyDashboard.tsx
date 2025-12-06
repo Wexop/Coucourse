@@ -1,10 +1,17 @@
 "use client";
 
-import { Button, Card, Center, Container, Group, HoverCard, SimpleGrid, Stack, Text, Title, } from "@mantine/core"
-import Link from "next/link"
-import { IconPlus } from "@tabler/icons-react"
-import JoinFamilyInput from "../JoinFamily/JoinFamilyInput"
-
+import {
+  Button,
+  Card,
+  Container,
+  Group,
+  HoverCard,
+  SimpleGrid,
+  Text,
+  Title,
+} from "@mantine/core";
+import Link from "next/link";
+import { Welcome } from "../Welcome/Welcome"; // Import the Welcome component
 
 interface Family {
   id: number;
@@ -17,36 +24,20 @@ interface FamilyDashboardProps {
 }
 
 export function FamilyDashboard({ families }: FamilyDashboardProps) {
+  // If the user has no families, show the Welcome component directly
   if (families.length === 0) {
-    return (
-      <Container>
-        <Center style={{ height: "calc(100vh - 120px)" }}>
-          <Stack align="center">
-            <Title order={2}>Bienvenue sur Coucourse !</Title>
-            <Text c="dimmed">
-              Il semble que vous n'ayez rejoint aucune famille pour le moment.
-            </Text>
-            <Button
-              component={Link}
-              href="/"
-              leftSection={<IconPlus size={14} />}
-              size="md"
-              mt="lg"
-            >
-              Créer ou rejoindre une famille
-            </Button>
-          </Stack>
-        </Center>
-      </Container>
-    );
+    return <Welcome />;
   }
 
+  // If the user has families, show the dashboard
   return (
     <Container>
       <Group justify="space-between" align="center" my="xl">
         <Title order={1}>Mes Familles</Title>
-
-        <JoinFamilyInput/>
+        {/* You might want a button to go back to the welcome page to add more families */}
+        <Button component={Link} href="/" variant="outline">
+          Gérer les familles
+        </Button>
       </Group>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
         {families.map((family) => (

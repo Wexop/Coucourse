@@ -1,10 +1,10 @@
 "use client";
 
-import { Box, Button, Container, Group, Text, TextInput, Title } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useRouter } from "next/navigation";
-import JoinFamilyInput from "../JoinFamily/JoinFamilyInput";
-import * as classes from "./Welcome.css";
+import { Box, Button, Container, Group, Text, TextInput, Title } from "@mantine/core"
+import { useForm } from "@mantine/form"
+import { useRouter } from "next/navigation"
+import JoinFamilyInput from "../JoinFamily/JoinFamilyInput"
+
 
 export function Welcome() {
   const router = useRouter();
@@ -33,7 +33,7 @@ export function Welcome() {
 
   return (
     <Container>
-      <Title className={classes.title} ta="center" mt={100}>
+      <Title  ta="center" mt={100}>
         Bienvenue sur{" "}
         <Text
           inherit

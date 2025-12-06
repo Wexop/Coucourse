@@ -3,10 +3,13 @@
 import { Anchor, AppShell, Group, Title } from "@mantine/core"
 import Link from "next/link"
 import { vars } from "../../theme"
+import RootLayout from "../layout"
 
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
+    <RootLayout>
+
     <AppShell header={{ height: 60 }} padding="md">
       <AppShell.Header>
         <Group h="100%" px="md">
@@ -27,5 +30,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </AppShell.Header>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
+    </RootLayout>
+
   );
 }

@@ -29,7 +29,11 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "zod": "^4.1.13",
-    "zod-to-json-schema": "^3.25.0"
+    "zod-to-json-schema": "^3.25.0",
+    "postcss": "^8.5.5",
+    "postcss-preset-mantine": "1.17.0",
+    "postcss-simple-vars": "^7.0.1",
+    "typescript": "5.8.3"
   },
   "devDependencies": {
     "@types/node": "22.13.11",
@@ -38,11 +42,7 @@
     "@types/react-dom": "19.1.6",
     "@vanilla-extract/next-plugin": "^2.4.14",
     "eslint": "9.29.0",
-    "eslint-config-next": "15.3.3",
-    "postcss": "^8.5.5",
-    "postcss-preset-mantine": "1.17.0",
-    "postcss-simple-vars": "^7.0.1",
-    "typescript": "5.8.3"
+    "eslint-config-next": "15.3.3"
   },
   "packageManager": "pnpm@10.24.0"
 }

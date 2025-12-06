@@ -14,13 +14,13 @@ import {
   SimpleGrid,
   TextInput,
   Title,
-} from "@mantine/core"
-import { useForm } from "@mantine/form"
-import { useDebouncedValue, useDisclosure } from "@mantine/hooks"
-import { IconArrowsMaximize, IconPlus, IconTrash, } from "@tabler/icons-react"
-import { useCallback, useEffect, useState } from "react"
-import { ShoppingList, } from "../../src/types/shopping-list"
-
+  Text,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
+import { IconArrowsMaximize, IconPlus, IconTrash } from "@tabler/icons-react";
+import { useCallback, useEffect, useState } from "react";
+import { ShoppingList } from "../../types/shopping-list";
 
 interface ShoppingListsProps {
   familyId: number;
@@ -34,8 +34,14 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebouncedValue(search, 300);
   const [activeList, setActiveList] = useState<ShoppingList | null>(null);
-  const [modalOpened, { open: openModal, close: closeModal }] =
+  const [listToDelete, setListToDelete] = useState<ShoppingList | null>(null);
+
+  const [viewModalOpened, { open: openViewModal, close: closeViewModal }] =
     useDisclosure(false);
+  const [
+    deleteModalOpened,
+    { open: openDeleteModal, close: closeDeleteModal },
+  ] = useDisclosure(false);
 
   const listForm = useForm({
     initialValues: { listName: "" },
@@ -76,19 +82,25 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
     setLoading(false);
   };
 
+  const handleDeleteList = async () => {
+    if (!listToDelete) return;
+    await fetch(`/api/shopping-list/${listToDelete.id}`, {
+      method: "DELETE",
+    });
+    setLists((prev) => prev.filter((list) => list.id !== listToDelete.id));
+    closeDeleteModal();
+    setListToDelete(null);
+  };
+
   const handleAddItem = async (listId: number, itemName: string) => {
     if (!itemName || itemName.trim().length === 0) return;
-
     const list = lists.find((l) => l.id === listId);
     const existingCheckedItem = list?.shoppingListItem.find(
       (item) => item.name === itemName && item.checked
     );
-
     if (existingCheckedItem) {
-      // Uncheck the item
       await handleToggleItem(existingCheckedItem.id, false);
     } else {
-      // Add a new item
       const response = await fetch(`/api/shopping-list/${listId}/items`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -144,32 +156,39 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
 
   const openListModal = (list: ShoppingList) => {
     setActiveList(list);
-    openModal();
+    openViewModal();
+  };
+
+  const confirmDeleteList = (list: ShoppingList) => {
+    setListToDelete(list);
+    openDeleteModal();
   };
 
   const renderListContent = (list: ShoppingList) => (
     <>
       <List spacing="xs" size="sm" mt="sm">
-        {list.shoppingListItem.sort(a => a.checked ? 1 : -1).map((item) => (
-          <List.Item key={item.id}>
-            <Group>
-              <Checkbox
-                label={item.name}
-                checked={item.checked}
-                onChange={(event) =>
-                  handleToggleItem(item.id, event.currentTarget.checked)
-                }
-              />
-              <ActionIcon
-                variant="subtle"
-                color="red"
-                onClick={() => handleDeleteItem(list.id, item.id)}
-              >
-                <IconTrash style={{ width: rem(16), height: rem(16) }} />
-              </ActionIcon>
-            </Group>
-          </List.Item>
-        ))}
+        {list.shoppingListItem
+          .sort((a) => (a.checked ? 1 : -1))
+          .map((item) => (
+            <List.Item key={item.id}>
+              <Group>
+                <Checkbox
+                  label={item.name}
+                  checked={item.checked}
+                  onChange={(event) =>
+                    handleToggleItem(item.id, event.currentTarget.checked)
+                  }
+                />
+                <ActionIcon
+                  variant="subtle"
+                  color="red"
+                  onClick={() => handleDeleteItem(list.id, item.id)}
+                >
+                  <IconTrash style={{ width: rem(16), height: rem(16) }} />
+                </ActionIcon>
+              </Group>
+            </List.Item>
+          ))}
       </List>
       <Box
         component="form"
@@ -215,9 +234,21 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
           <Card key={list.id} shadow="sm" p="lg" radius="md" withBorder>
             <Group justify="space-between">
               <Title order={3}>{list.name}</Title>
-              <ActionIcon variant="subtle" onClick={() => openListModal(list)}>
-                <IconArrowsMaximize />
-              </ActionIcon>
+              <Group gap="xs">
+                <ActionIcon
+                  variant="subtle"
+                  onClick={() => openListModal(list)}
+                >
+                  <IconArrowsMaximize />
+                </ActionIcon>
+                <ActionIcon
+                  variant="subtle"
+                  color="red"
+                  onClick={() => confirmDeleteList(list)}
+                >
+                  <IconTrash />
+                </ActionIcon>
+              </Group>
             </Group>
             <Box mt="sm" style={{ maxHeight: 500, overflowY: "auto" }}>
               {renderListContent(list)}
@@ -226,8 +257,32 @@ export function ShoppingLists({ familyId, initialLists }: ShoppingListsProps) {
         ))}
       </SimpleGrid>
 
-      <Modal opened={modalOpened} onClose={closeModal} title={activeList?.name} size="lg">
+      <Modal
+        opened={viewModalOpened}
+        onClose={closeViewModal}
+        title={activeList?.name}
+        size="lg"
+      >
         {activeList && renderListContent(activeList)}
+      </Modal>
+
+      <Modal
+        opened={deleteModalOpened}
+        onClose={closeDeleteModal}
+        title="Supprimer la liste"
+      >
+        <Text>
+          Êtes-vous sûr de vouloir supprimer la liste "
+          {listToDelete?.name}" ? Cette action est irréversible.
+        </Text>
+        <Group justify="flex-end" mt="md">
+          <Button variant="default" onClick={closeDeleteModal}>
+            Annuler
+          </Button>
+          <Button color="red" onClick={handleDeleteList}>
+            Supprimer
+          </Button>
+        </Group>
       </Modal>
     </Box>
   );
